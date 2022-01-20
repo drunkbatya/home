@@ -1,0 +1,77 @@
+#!/usr/bin/ansible-playbook
+
+- hosts: 127.0.0.1
+  connection: local
+  vars:
+    vim_dir: "{{ ansible_env.HOME }}/.vim"
+    vimrc: "{{ ansible_env.HOME }}/.vimrc"
+    home: "{{ ansible_env.HOME }}"
+    shellcheck_name: "shellcheck"
+    ag_name: "silversearcher-ag"
+  tasks:
+  - name: Setting vars by OS Family
+    set_fact:
+      shellcheck_name: "ShellCheck"
+      ag_name: "the_silver_searcher"
+    when: ansible_facts['os_family'] == "RedHat"
+
+  - name: Installing Base Packages
+    ignore_errors: yes
+    become: true
+    package:
+      name:
+        - vim
+        - net-tools
+        - git
+        - "{{ shellcheck_name }}"
+        - "{{ ag_name }}"
+      state: latest
+
+  - name: Installing .bashrc
+    get_url:
+      dest: "{{ home }}/.bashrc"
+      url: https://raw.githubusercontent.com/drunkbatya/home/main/bashrc
+
+  - name: Installing .vimrc
+    get_url:
+      dest: "{{ home }}/.vimrc"
+      url: https://raw.githubusercontent.com/drunkbatya/home/main/vimrc
+
+  - name: Creating .vim/{autoload,bundle,colors} directories
+    file:
+      path: "{{ item }}"
+      state: directory
+      recurse: no
+      mode: 0750
+    loop:
+      - "{{ vim_dir }}"
+      - "{{ vim_dir }}/autoload"
+      - "{{ vim_dir }}/bundle"
+      - "{{ vim_dir }}/colors"
+
+  - name: Installing vim-plug
+    get_url:
+      dest: "{{ vim_dir }}/autoload/plug.vim"
+      url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+  - name: Install JellyBean color scheme
+    get_url:
+      dest: "{{ vim_dir }}/colors/jellybeans.vim"
+      url: https://raw.githubusercontent.com/nanotech/jellybeans.vim/master/colors/jellybeans.vim
+
+  - name: Install Vim Plugins
+    git:
+      dest: "{{ vim_dir }}/bundle/{{ item.name }}"
+      repo: "{{ item.url }}"
+      clone: yes
+      update: yes
+      recursive: no
+    loop:
+      - name: vim-puppet
+        url: https://github.com/rodjek/vim-puppet.git
+      - name: vim-better-whitespace
+        url: https://github.com/ntpeters/vim-better-whitespace.git
+      - name: lightline.vim
+        url: https://github.com/itchyny/lightline.vim.git
+      - name: vim-42header
+        url: https://github.com/pbondoer/vim-42header.git
