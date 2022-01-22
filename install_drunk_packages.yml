@@ -41,6 +41,13 @@
       force: yes
       backup: true
 
+  - name: Installing .gitconfig
+    get_url:
+      dest: "{{ home }}/.gitconfig"
+      url: https://raw.githubusercontent.com/drunkbatya/home/main/gitconfig
+      force: yes
+      backup: true
+
   - name: Creating .vim/{autoload,bundle,colors} directories
     file:
       path: "{{ item }}"
