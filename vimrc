@@ -1,14 +1,19 @@
-"set expandtab
-"set tabstop=4
+set expandtab
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set backspace=indent,eol,start
+
+# to set 'filetype' in files
+set modeline
+set modelines=2
 
 silent! call plug#begin('~/.vim/bundle')
 Plug 'rodjek/vim-puppet'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'itchyny/lightline.vim'
 Plug 'pbonder/vim-42header'
+Plug 'chr4/nginx.vim'
 call plug#end()
 
 set laststatus=2
