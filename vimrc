@@ -4,7 +4,7 @@ set shiftwidth=4
 set softtabstop=4
 set backspace=indent,eol,start
 
-# to set 'filetype' in files
+" to set 'filetype' in files
 set modeline
 set modelines=2
 
