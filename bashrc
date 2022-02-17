@@ -21,6 +21,7 @@ if [ "$EUID" == 0 ];then
 else
     SIGN="$";
 fi
+
 # for vim-42header
 export USER=$LOGNAME
 export MAIL=drunkbatya.js@gmail.com #hardcode TODO: remove
@@ -39,3 +40,6 @@ LC_ALL=en_US.utf-8
 # options
 shopt -s checkwinsize
 shopt -s histappend
+
+# editor
+export EDITOR=vim
