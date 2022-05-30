@@ -86,7 +86,5 @@
         url: https://github.com/ntpeters/vim-better-whitespace.git
       - name: lightline.vim
         url: https://github.com/itchyny/lightline.vim.git
-      - name: vim-42header
-        url: https://github.com/pbondoer/vim-42header.git
       - name: nginx.vim
         url: https://github.com/chr4/nginx.vim.git
