@@ -16,6 +16,7 @@ Plug 'rodjek/vim-puppet'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'itchyny/lightline.vim'
 Plug 'chr4/nginx.vim'
+Plug 'hashivim/vim-terraform'
 call plug#end()
 
 set laststatus=2

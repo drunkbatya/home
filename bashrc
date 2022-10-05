@@ -1,21 +1,11 @@
 alias ll='ls -alG'
 alias sudo='sudo -E HOME=$HOME'
-alias cpplint='cpplint --filter=-whitespace/braces,-readability/casting,-runtime/int,-build/include_subdir,-build/include,-runtime/threadsafe_fn,-runtime/printf --linelength=110 --headers=h'
 
-function cppp()
-{
-    cppcheck $*;
-    cpplint $*;
-}
+[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
-# bash completion
-if [ -f "/usr/local/etc/profile.d/bash_completion.sh" ];then
-    source "/usr/local/etc/profile.d/bash_completion.sh";
-elif [ -f "/usr/share/bash-completion/bash_completion" ]; then
-    source "/usr/share/bash-completion/bash_completion"
-elif [ -f "/etc/bash_completion" ]; then
-    source "/etc/bash_completion"
-fi
+source ~/.flipper/insfrastructure-misc.sh
+source ~/.git-completion.bash
+source <(kubectl completion bash)
 
 # check root and set $SIGN
 if [ "$EUID" == 0 ];then
@@ -30,7 +20,3 @@ if [ -x "/usr/bin/tput" ] && tput setaf 1 >&/dev/null; then
 else
     export PS1="\h[\w]: $SIGN "
 fi
-
-# locale
-LANG=en_US.utf-8
-LC_ALL=en_US.utf-8
