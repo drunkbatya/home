@@ -20,7 +20,7 @@ backup_file()
 
 downloader()
 {
-    echo "Installing $(basename "$1")..";
+    echo "Installing $(basename "$1") ..";
     backup_file "$1";
     if ! curl --version > /dev/null 2>&1; then
         if ! wget --version > /dev/null 2>&1; then
@@ -30,7 +30,7 @@ downloader()
         wget -qO "$1" "$2";
         return 0;
     fi
-    curl -SLo "$1" "$2";
+    curl -SsLo "$1" "$2";
     return 0;
 }
 
