@@ -1,11 +1,18 @@
 alias ll='ls -alG'
 alias sudo='sudo -E HOME=$HOME'
 
-[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
-
-source ~/.flipper/insfrastructure-misc.sh
-source ~/.git-completion.bash
-source <(kubectl completion bash)
+if [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]]; then
+    source "/opt/homebrew/etc/profile.d/bash_completion.sh";
+fi
+if [[ -r "~/.flipper/insfrastructure-misc.sh" ]]; then
+    source "~/.flipper/insfrastructure-misc.sh";
+fi
+if [[ -r "~/.git-completion.bash" ]]; then
+    source "~/.git-completion.bash";
+fi
+if which kubectl; then
+    source <(kubectl completion bash);
+fi
 
 # check root and set $SIGN
 if [ "$EUID" == 0 ];then
